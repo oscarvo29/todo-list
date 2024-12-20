@@ -1,0 +1,9 @@
+tasks.db
+.DS_Store
+*.exe
+*.out
+/go-build
+.Spotlight-v100
+.vscode/
+.idea/
+.env

@@ -13,8 +13,13 @@ import (
 
 var commands = []string{"add", "delete", "list", "complete"}
 
-// To do:
-// The rest of the crud
+/*
+	TODO:
+	- Refactor main function.
+	- Add args input functions
+	- Format everything into a table for printing
+	- Format time stamps. 
+*/
 
 func main() {
 	db.InitDB()

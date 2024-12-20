@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/oscarvo29/todo-list/db"
@@ -9,9 +8,9 @@ import (
 
 type Task struct {
 	Id          int64
-	Description string    `binding:"required"`
-	CreatedAt   time.Time `binding:"required"`
-	Done        bool      `binding:"required"`
+	Description string
+	CreatedAt   time.Time
+	Done        bool
 }
 
 func (t *Task) TaskDone() {
@@ -94,9 +93,6 @@ func (t *Task) UpdateTask() error {
 	SET description = ?, createdAt = ?, done = ? 
 	WHERE id = ?
 	`
-
-	fmt.Println("Hallo inside update task")
-	fmt.Println("Done: ", t.Done)
 
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
