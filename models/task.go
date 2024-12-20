@@ -61,3 +61,15 @@ func GetAllTasks() ([]Task, error) {
 
 	return tasks, nil
 }
+
+func DeleteTask(id int64) error {
+	query := "DELETE FROM tasks WHERE id = ?"
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(id)
+	return err
+}

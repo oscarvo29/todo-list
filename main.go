@@ -14,7 +14,6 @@ var commands = []string{"add", "delete", "list", "complete"}
 
 // To do:
 // The rest of the crud
-// Rename task table to tasks.
 
 func main() {
 	db.InitDB()
@@ -40,7 +39,11 @@ func main() {
 					panic(err)
 				}
 			case "delete":
-				fmt.Println("Deleted")
+				err := models.DeleteTask(int64(1))
+				if err != nil {
+					fmt.Println("Error when trying to delete task.")
+					panic(err)
+				}
 			case "list":
 				tasks, err := models.GetAllTasks()
 				if err != nil {
