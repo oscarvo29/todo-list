@@ -1,24 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"slices"
-	"time"
 
 	"github.com/oscarvo29/todo-list/db"
-	"github.com/oscarvo29/todo-list/models"
-	"github.com/oscarvo29/todo-list/utils"
+	"github.com/oscarvo29/todo-list/services"
 )
-
-var commands = []string{"add", "delete", "list", "complete"}
 
 /*
 	TODO:
-	- Refactor main function.
-	- Add args input functions
 	- Format everything into a table for printing
-	- Format time stamps. 
+	- Format time stamps.
+	- Consider the need to make it a loop, so the program wont end after on input, or make multiple tasks in one go
 */
 
 func main() {
@@ -29,53 +22,5 @@ func main() {
 		return
 	}
 
-	for _, command := range commands {
-		if slices.Contains(args, command) {
-			switch command {
-			case "add":
-				task := models.Task{
-					Description: "Create the rest of the app",
-					CreatedAt:   time.Now(),
-					Done:        false,
-				}
-
-				err := task.Save()
-				if err != nil {
-					fmt.Println("Error when trying to save.")
-					panic(err)
-				}
-			case "delete":
-				err := models.DeleteTask(int64(1))
-				if err != nil {
-					fmt.Println("Error when trying to delete task.")
-					panic(err)
-				}
-			case "list":
-				tasks, err := models.GetAllTasks()
-				if err != nil {
-					fmt.Println("Error when trying fetch all tasks.")
-					panic(err)
-				}
-				fmt.Printf("tasks: %v\n", tasks)
-			case "complete":
-				id, err := utils.ConvertStringToInt64("2")
-				if err != nil {
-					fmt.Println("Error when trying convert the id. Make sure you type the right id.")
-					panic(err)
-				}
-				task, err := models.GetTaskById(id)
-				if err != nil {
-					fmt.Println("Error when trying fetch the taskt. Make sure you type the right id.")
-					panic(err)
-				}
-
-				task.TaskDone()
-				err = task.UpdateTask()
-				if err != nil {
-					fmt.Println("Error when trying to update tasks completion.")
-					panic(err)
-				}
-			}
-		}
-	}
+	services.ProcessCmd(args...)
 }
