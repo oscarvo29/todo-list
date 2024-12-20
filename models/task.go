@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/oscarvo29/todo-list/db"
@@ -15,6 +16,19 @@ type Task struct {
 
 func (t *Task) TaskDone() {
 	t.Done = true
+}
+
+func GetTaskById(id int64) (*Task, error) {
+	query := "SELECT * FROM tasks WHERE id = ?"
+	row := db.DB.QueryRow(query, id)
+	var task Task
+
+	err := row.Scan(&task.Id, &task.Description, &task.CreatedAt, &task.Done)
+	if err != nil {
+		return nil, err
+	}
+
+	return &task, nil
 }
 
 func (t *Task) Save() error {
@@ -71,5 +85,26 @@ func DeleteTask(id int64) error {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(id)
+	return err
+}
+
+func (t *Task) UpdateTask() error {
+	query := `
+	UPDATE tasks
+	SET description = ?, createdAt = ?, done = ? 
+	WHERE id = ?
+	`
+
+	fmt.Println("Hallo inside update task")
+	fmt.Println("Done: ", t.Done)
+
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+
+	defer stmt.Close()
+
+	_, err = stmt.Exec(t.Description, t.CreatedAt, t.Done, t.Id)
 	return err
 }
