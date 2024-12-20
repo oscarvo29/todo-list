@@ -10,7 +10,7 @@ var DB *sql.DB
 
 func InitDB() {
 	var err error
-	DB, err = sql.Open("sqlite3", "task.db")
+	DB, err = sql.Open("sqlite3", "tasks.db")
 	if err != nil {
 		panic("could not connect to database")
 	}
@@ -22,16 +22,16 @@ func InitDB() {
 }
 
 func createTable() {
-	createTaskTable := `
-	CREATE TABLE IF NOT EXISTS task (
+	createTasksTable := `
+	CREATE TABLE IF NOT EXISTS tasks (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		description TEXT NOT NULL,
 		createdAt DATETIME NOT NULL,
 		done BOOLEAN NOT NULL
 	)`
 
-	_, err := DB.Exec(createTaskTable)
+	_, err := DB.Exec(createTasksTable)
 	if err != nil {
-		panic("could not create task table")
+		panic("could not create tasks table")
 	}
 }

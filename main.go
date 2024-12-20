@@ -12,6 +12,10 @@ import (
 
 var commands = []string{"add", "delete", "list", "complete"}
 
+// To do:
+// The rest of the crud
+// Rename task table to tasks.
+
 func main() {
 	db.InitDB()
 	args := os.Args

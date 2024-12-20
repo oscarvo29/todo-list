@@ -18,7 +18,7 @@ func (t *Task) TaskDone() {
 }
 
 func (t *Task) Save() error {
-	query := `INSERT INTO task(description, createdAt, done) VALUES (?, ?, ?)`
+	query := `INSERT INTO tasks(description, createdAt, done) VALUES (?, ?, ?)`
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func (t *Task) Save() error {
 }
 
 func GetAllTasks() ([]Task, error) {
-	query := "SELECT * FROM task"
+	query := "SELECT * FROM tasks"
 	rows, err := db.DB.Query(query)
 	if err != nil {
 		return nil, err
