@@ -42,7 +42,9 @@ func ListTasks() {
 		fmt.Println("Error when trying fetch all tasks.")
 		panic(err)
 	}
-	fmt.Printf("tasks: %v\n", tasks)
+
+	table := InstansiateTable(tasks)
+	table.PrintTable()
 }
 
 func CompleteTask(taskId string) {

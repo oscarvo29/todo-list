@@ -9,9 +9,11 @@ import (
 
 /*
 	TODO:
-	- Format everything into a table for printing
-	- Format time stamps.
-	- Consider the need to make it a loop, so the program wont end after on input, or make multiple tasks in one go
+	- Format the created time string better.
+	- Don't display tasks which is done.
+	- Impletement a flag for "list" commend, to show tasks which is completed.
+	- implement an opptional column, for which there is a deadline.
+	- Consider to make the table more pretty with column borders, row borders, and so on.
 */
 
 func main() {

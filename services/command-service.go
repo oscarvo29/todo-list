@@ -2,9 +2,6 @@ package services
 
 import (
 	"errors"
-
-	"github.com/oscarvo29/todo-list/models"
-	"github.com/oscarvo29/todo-list/utils"
 )
 
 func ProcessCmd(commands ...string) {
@@ -23,11 +20,6 @@ func ProcessCmd(commands ...string) {
 			}
 			DeleteTask(taskId)
 		case "list":
-			task, err := models.GetTaskById(1)
-			if err != nil {
-				panic(err)
-			}
-			utils.CompareTimes(task.CreatedAt)
 			ListTasks()
 		case "complete":
 			taskId, err := GetNextArg(idx, commands)
