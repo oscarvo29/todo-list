@@ -10,20 +10,25 @@ func ConvertStringToInt64(inp string) (int64, error) {
 	return strconv.ParseInt(inp, 10, 64)
 }
 
+// CompareTimes takes in a time.Time parameter, and compares when it was created, to the time now. Then it formats it into readable time descriptions.
+// This function befores basic camparision.
 func CompareTimes(t time.Time) string {
 	nowTime := time.Now()
 
 	difference := nowTime.Sub(t)
 
-	if difference < time.Minute {
-		return "seconds ago"
-	} else if difference < time.Hour {
-		return "created less than an hour ago.."
-	} else if difference < 24*time.Hour {
-		return "created less than a day ago"
-	} else {
-		// days := int(difference.Hours() / 24)
-		return "Happen some days ago"
+	switch {
+	case difference < time.Minute:
+		return "A few seconds ago"
+	case difference < time.Minute*5:
+		return "A few minutes ago"
+	case difference < time.Hour:
+		return "Created less than an hour ago"
+	case difference < 24*time.Hour:
+		return "Created less than a day ago"
+	default:
+		days := int(difference.Hours() / 24)
+		return fmt.Sprintf("Created %v days ago", days)
 	}
 }
 

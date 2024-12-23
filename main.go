@@ -9,7 +9,6 @@ import (
 
 /*
 	TODO:
-	- Format the created time string better.
 	- Don't display tasks which is done.
 	- Impletement a flag for "list" commend, to show tasks which is completed.
 	- implement an opptional column, for which there is a deadline.
