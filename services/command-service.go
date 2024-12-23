@@ -20,7 +20,13 @@ func ProcessCmd(commands ...string) {
 			}
 			DeleteTask(taskId)
 		case "list":
-			ListTasks()
+			nextArg, _ := GetNextArg(idx, commands)
+			if nextArg == "-a" {
+				ListTasks()
+				return
+			}
+
+			ListTasksWhichIsUncomplete()
 		case "complete":
 			taskId, err := GetNextArg(idx, commands)
 			if err != nil {

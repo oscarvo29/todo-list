@@ -75,6 +75,28 @@ func GetAllTasks() ([]Task, error) {
 	return tasks, nil
 }
 
+func GetAllTasksWhichIsUncomplete() ([]Task, error) {
+	query := "SELECT * FROM tasks WHERE done = ?"
+	rows, err := db.DB.Query(query, false)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var tasks []Task
+	for rows.Next() {
+		var task Task
+		err = rows.Scan(&task.Id, &task.Description, &task.CreatedAt, &task.Done)
+		if err != nil {
+			return nil, err
+		}
+
+		tasks = append(tasks, task)
+	}
+
+	return tasks, nil
+}
+
 func DeleteTask(id int64) error {
 	query := "DELETE FROM tasks WHERE id = ?"
 	stmt, err := db.DB.Prepare(query)

@@ -47,6 +47,17 @@ func ListTasks() {
 	table.PrintTable()
 }
 
+func ListTasksWhichIsUncomplete() {
+	tasks, err := models.GetAllTasksWhichIsUncomplete()
+	if err != nil {
+		fmt.Println("Error when trying fetch all tasks.")
+		panic(err)
+	}
+
+	table := InstansiateTable(tasks)
+	table.PrintTable()
+}
+
 func CompleteTask(taskId string) {
 	id, err := utils.ConvertStringToInt64(taskId)
 	if err != nil {
