@@ -14,18 +14,18 @@ func InstansiateTable(tasks []models.Task) *models.Table {
 
 	for _, task := range tasks {
 		if !table.IsColumnSet() {
-			columns := getFieldsNamesFromStruct(task)
+			columns := GetFieldsNamesFromStruct(task)
 			table.AddColumn(columns)
 		}
 
-		row := getFieldValuesFromStructAsStrings(task)
+		row := GetFieldValuesFromStructAsStrings(task)
 		table.AddRow(row)
 	}
 
 	return table
 }
 
-func getFieldsNamesFromStruct(t any) []string {
+func GetFieldsNamesFromStruct(t any) []string {
 	var fieldNames []string
 
 	val := reflect.TypeOf(t)
@@ -37,7 +37,7 @@ func getFieldsNamesFromStruct(t any) []string {
 	return fieldNames
 }
 
-func getFieldValuesFromStructAsStrings(t any) []string {
+func GetFieldValuesFromStructAsStrings(t any) []string {
 	var fieldValues []string
 
 	val := reflect.ValueOf(t)

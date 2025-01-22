@@ -11,6 +11,7 @@ type Task struct {
 	Description string
 	CreatedAt   time.Time
 	Done        bool
+	DueDate     time.Time
 }
 
 func (t *Task) TaskDone() {

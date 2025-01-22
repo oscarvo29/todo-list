@@ -8,11 +8,14 @@ func ProcessCmd(commands ...string) {
 	for idx, cmd := range commands {
 		switch cmd {
 		case "add":
-			description, err := GetNextArg(idx, commands)
+			// if slices.Contains("-d", commands[]) // TJek hele strængen
+
+			nextArg, err := GetNextArg(idx, commands)
 			if err != nil {
 				panic(err)
 			}
-			AddTask(description) // TODO : dynamic inp
+
+			AddTask(nextArg) // TODO : dynamic inp
 		case "delete":
 			taskId, err := GetNextArg(idx, commands)
 			if err != nil {
